@@ -1,0 +1,2 @@
+json_key_file "n" # Path to the json secret file - Follow https://github.com/fastlane/supply#setup to get one
+package_name "ru.car4men.app.client" # e.g. com.krausefx.app
