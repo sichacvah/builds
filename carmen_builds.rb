@@ -2,6 +2,10 @@ $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__))) unless $LOAD_PATH.i
 
 
 require 'git'
+require 'open-uri'
+require 'fileutils'
+require "mini_magick"
+
 require 'carmen_builds/builder'
 require 'tmpdir'
 

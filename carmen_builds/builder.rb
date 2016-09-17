@@ -1,40 +1,35 @@
 module CarmenBuilds
-  class Builder
-    attr_accessor :git_repo, :original_icon_url
-    attr_reader :tmpdir
-
-    def initialize(options = {})
-      options.each do |key, val|
-        instance_variable_set("@#{key}", val)
-      end
-
-      yield(self) if block_given?
+  module Builders
+    def self.build(config)
+      platforms.each { |platform| platform.build(config) }
     end
 
-    def build
-      raise NoMethodError, 'Not implement'
+    def self.platforms
+      @platforms ||= []
     end
 
-    def clone_and_build
-      clone_repo
-      build
-    end
+    class Builder
+      class << self
+        def build(&block)
+          define_method :buld do |config|
+            clone_repo(config)
+            block.call(config)
+          end
+        end
 
-    protected
+        def tmpdir
+          @tmpdir ||= Dir.mktmpdir(nil, tmp_path)
+        end
 
-    def clone_repo
-      init_tmp_dir
-      puts "[#{Time.now.strftime('%H:%M%S')}] Start Cloning #{@git_repo}"
-      @git =  Git.clone(@git_repo,'tmp', path: @tmddir)
-      puts "[#{Time.now.strftime('%H:%M%S')}] End Cloning #{@git_repo}"
-      #@git = `git clone #{@git_repo, @tmddir + "/client"}`.chomp
-    end
+        def tmp_path
+          @tmp_path ||= File.expand_path('../../tmp', __FILE__)
+        end
 
-    def init_tmp_dir
-      path = File.expand_path('../../tmp', __FILE__)
-      Dir.mktmpdir(nil, path) do |dir|
-        @tmddir = dir
+        def clone_repo(config)
+          config.git = Git.clone(config.repo_url, config.project_name, tmpdir)
+        end
       end
     end
+
   end
 end

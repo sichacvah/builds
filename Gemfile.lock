@@ -239,6 +239,7 @@ PLATFORMS
 DEPENDENCIES
   fastlane
   git
+  mini_magick
 
 BUNDLED WITH
    1.12.5
