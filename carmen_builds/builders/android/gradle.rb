@@ -1,12 +1,12 @@
 module CarmenBuilds
-  module Builders
+  module Builders::Android
     class Gradle
       def initialize(config)
         @config = config
       end
 
       def path
-        @path ||= File.expand_path(@config.git.dir.path, 'android/app/build.gradle')
+        @path ||= File.join(@config.git.dir.path, 'android/app/build.gradle')
       end
 
       def file
@@ -18,11 +18,13 @@ module CarmenBuilds
       end
 
       def set_version_code!
-        file.gsub!(/(?<=versionCode )(\d+)/, "#{$1.to_i + 1}")
+        file.gsub!(/(?<=versionCode )(\d+)/, "#{$1.to_i.next}")
       end
 
       def set_version_name!
-        file.gsub!(/(?<=versionName )(\d+)/, "\"#{increment_patch_ver($1)}\"")
+        file.gsub!(/(?<=versionName )(\".+\")/) do |version|
+          '"' + increment_patch_ver(version) + '"'
+        end
       end
 
       def save!

@@ -21,13 +21,13 @@ module CarmenBuilds
         end
 
         def prepare
-          templates.each do |template|
-            save template, file_path(template)
+          Dir.glob(TEMPLATES_PATH +  '/*.erb') do |template|
+            save template.read, file_path(template)
           end
         end
 
         def save(template, file)
-          File.open(file, 'w+') do |file|
+          File.open(file, 'w+') do |f|
             f.write render(template)
           end
         end
@@ -51,13 +51,6 @@ module CarmenBuilds
           File.base_name(template, '.erb')
         end
 
-        def get_templates
-          templates = []
-          Dir.glob(TEMPLATES_PATH +  '/*.erb') do |template|
-            templates << template.read
-          end
-          templates
-        end
       end
     end
   end

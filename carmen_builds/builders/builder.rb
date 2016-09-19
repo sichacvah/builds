@@ -26,7 +26,7 @@ module CarmenBuilds
         end
 
         def clone_repo(config)
-          config.git = Git.clone(config.repo_url, config.project_name, path: tmpdir)
+          config.git ||= Git.clone(config.repo_url, config.project_name, path: tmpdir)
         end
       end
     end

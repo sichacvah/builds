@@ -1,2 +1,2 @@
-require_relative 'builders/builder'
-require_relative 'builders/android'
+require 'carmen_builds/builders/builder'
+require 'carmen_builds/builders/android'
