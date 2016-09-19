@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "api-8543655401238225387-448932",
+  "private_key_id": "f3dec43550b855d0faf9f0a2ee9235db5724a43e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDLHIPQGK8orELA\njuznbXGmFs5D+biYQr1BQf3Z6GRfrKI040nJ8aQ826Q0LPfW4rdbTHMBcqQfLDaT\nlDlTHDRo/7ja7Ev0Jgrc3O1Oa3zAd7h1PGkLSHFXhYNf0VkVzMt0nDHqcdCF4McX\nHMkawDgViIoKnjOvXSA6LsULFYU/RnYdHF9YEsoqzbvMW25wIIvrxl8s3rGg4I13\nsh8fCILC+BeCHHlamMTdJUuJ5ZQHaROKc4i7EkjpFqb4pj3sb6MLt6zUkK4jnT+N\nju9NBJhVVO1fHbWf/l1wH1K68QfnmlkeVO93PAUNX54PWl22a8iQTitL5SJHiCbZ\n1kbaY8LxAgMBAAECggEAA15qtUXjidoplUYJmeEP1IBmVWxL6oKY3v84NagMGiYj\n3pqye539amD+PTtNtQu3nNUMx0ZegIHcOeBofv9lwyQSrdbjf54t6fHkIbvYqtyR\ne6hP2bcO4jO9tRYk0x69dSauEURoAAB1bOW2VDJB++Fy4LA1DUCPK0fhTsjBmAYM\nmQSVgjcaWBxOKx5+Q/3ajsmxeapGOEM8L2olgu0Yl+GqsoF2YvKPSK64gOvlFLxq\nZJOlioXudoLqcgci1ILaqGPOzoVnXZmcGCP58BD3SVEFPLgCZeIiTlgFTUGx2Hlb\nVMgiTDZb4vfrhaMeglpXDbsIR18rIROvOL9O6IphXQKBgQDkbZd/j9j2xPkll9y7\nlev4G2e08nvXKMsyFCNWavroY6oJjtIzA97b1AqYf2WqPw+IBGMZioJvzML5C4mC\n1FEcjX3Z15eSMxX848Lvmj+vAWm/IJTYluNvUYixAh29Y7yLe5vNlKUoalGsSB8B\ngeRB3yTbAybJJWOAWJGT186qZwKBgQDjoKOaHkdah9OUOJQKHNOnNdDTW6bxbDNl\nmS0QhFZA4jACIlrJL6TlNdmnldP9arwxj3muB/FaTTlP+IPq/GdCIzWJ5wVh4qOX\n+hbfbF/LWfg9JJIFVUkLrmiOG/nkBzvRXwWnktUDa0i04qK3AEgT+1O0C6QWqV7A\nTzce6NgA5wKBgQDgOJr/QeoMwGh3eEvZbl5EGlKAEY1yM77RF2dgin5j4oCkBSdb\noC7/xXHpIxReOqw6LWRBS+6hY3L3F1YRr+s2hcTFMpS7k52/sKpGmzhrxo1QaODy\ngZoaSQROC++5Wc9XcywKbiB4PXSSEfEtf5zY8/qvaLaHt0WmVEoBv1JDfQKBgQCL\njzDfTBMpYT+Kj8nMDXKDAU7AV2AaguFcODbV+p07eLJAjLmmwexSj9qbkhQAOpGZ\nvUK4PaxvVgt+iXqv9wKEHTw1CYxWQHNWuYGOiE6PSeEV87cHSAvZ+pumDWb/tKOr\nMZww6qhpSTyxkoZ6ttR6U8w1BjIbpsouFCNScyYEHwKBgQCYGkTpji9+uUah/G0x\nXbMGrCK7IyOcGsXgkFvNc5FgfujFzyOt8Fu6ghytzA34Ej3e9UPoFByprxD3B2Ml\nDl7oSku4R86qEruCMHKDYv2PT7YftUXEVqo0jHc/Omkz3RpBF5vtmXCAltS2aLHX\nHqt4KngOCdaGmWBi5PTQNuou4g==\n-----END PRIVATE KEY-----\n",
+  "client_email": "car4men-apk-deployment@api-8543655401238225387-448932.iam.gserviceaccount.com",
+  "client_id": "115891180158369155338",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/car4men-apk-deployment%40api-8543655401238225387-448932.iam.gserviceaccount.com"
+}

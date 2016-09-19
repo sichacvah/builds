@@ -11,8 +11,8 @@ module CarmenBuilds
     class Builder
       class << self
         def build(&block)
-          define_method :buld do |config|
-            clone_repo(config)
+          define_method :build do |config|
+            self.class.clone_repo(config)
             block.call(config)
           end
         end
