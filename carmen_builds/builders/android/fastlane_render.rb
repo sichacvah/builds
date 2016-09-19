@@ -3,11 +3,11 @@ module CarmenBuilds
     module Android
       class FastlaneRender
         include ERB::Util
-        TEMPLATES_PATH = File.expand_path('../../../teplates/fastlane', __FILE__)
+        TEMPLATES_PATH = File.expand_path('../../../templates/fastlane', __FILE__)
         attr_accessor :json_key_file, :package_name, :git
 
         def initialize(config)
-          @json_key_file = ENV['JSON_KEY_FILE']
+          @json_key_file = File.join(ENV['JSON_KEY_FILE'])
           @package_name = config.project_name
           @git = config.git
         end
@@ -21,7 +21,8 @@ module CarmenBuilds
         end
 
         def prepare
-          Dir.glob(TEMPLATES_PATH +  '/*.erb') do |template|
+          Dir.glob(TEMPLATES_PATH.to_s + '/*.erb').each do |template|
+            puts template
             save template.read, file_path(template)
           end
         end
@@ -50,7 +51,6 @@ module CarmenBuilds
         def base_name(template)
           File.base_name(template, '.erb')
         end
-
       end
     end
   end

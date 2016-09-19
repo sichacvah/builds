@@ -2,7 +2,7 @@ RSpec.describe CarmenBuilds::Builders::Android::AndroidBuilder do
   describe '#prepare_icons' do
 
     let(:config) { create(:icon_config) }
-    let(:android_builder) { CarmenBuilds::Builders::Android::AndroidBuilder.new }
+    let(:android_builder) {CarmenBuilds::Builders::Android::AndroidBuilder.new }
     let(:res_path) {CarmenBuilds::Builders::Android::AndroidBuilder::RES_PATH}
     let(:icons) {CarmenBuilds::Builders::Android::AndroidBuilder::ICON_SIZES}
     let(:workdir) {FileUtils.mkdir_p(File.join(config.git.dir.path, res_path))}

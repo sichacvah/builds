@@ -253,6 +253,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
   factory_girl
   fastlane
   git
