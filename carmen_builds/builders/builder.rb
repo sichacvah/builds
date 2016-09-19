@@ -22,11 +22,11 @@ module CarmenBuilds
         end
 
         def tmp_path
-          @tmp_path ||= File.expand_path('../../tmp', __FILE__)
+          @tmp_path ||= File.expand_path('tmp')
         end
 
         def clone_repo(config)
-          config.git = Git.clone(config.repo_url, config.project_name, tmpdir)
+          config.git = Git.clone(config.repo_url, config.project_name, path: tmpdir)
         end
       end
     end

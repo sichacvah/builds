@@ -1,2 +1,2 @@
-require 'buiders/builder'
-require 'builders/android'
+require_relative 'builders/builder'
+require_relative 'builders/android'

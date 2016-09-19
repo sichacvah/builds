@@ -11,8 +11,6 @@ module CarmenBuilds
           xxxhdpi: '192x192',
         }
 
-        GRADLE_STRING_OPTIONS = ['applicationId', 'versionName']
-
         RES_PATH = 'android/app/src/main/res'
 
         build do |config|

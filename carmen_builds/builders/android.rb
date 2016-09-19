@@ -1,3 +1,3 @@
 require 'erb'
-require 'android/android_builder'
-require 'android/gradle'
+require_relative 'android/android_builder'
+require_relative 'android/gradle'
