@@ -1,4 +1,3 @@
-require 'pty'
 module CarmenBuilds
   module Builders
     module Android
@@ -23,8 +22,6 @@ module CarmenBuilds
           self.build_fastlane config
         end
 
-
-
         def self.prepare_icons(config)
           AndroidBuilder::ICON_SIZES.each do |key, value|
             path = FileUtils::mkdir_p File.join(config.git.dir.path, AndroidBuilder::RES_PATH, "drawable-#{key}")
@@ -40,8 +37,11 @@ module CarmenBuilds
         end
 
         def self.prepare_fastlane(config)
-          fastlane = FastlaneRender.new(config)
-          fastlane.prepare
+          fastlane = CarmenBuilds::Builders::FastlaneRender.new(config)
+          fastlane.prepare({
+            templates: File.expand_path('templates/fastlane/android'),
+            destinition: 'android/fastlane'
+          })
         end
 
         def self.run_cmd(cmd, options={})
