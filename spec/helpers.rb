@@ -8,6 +8,6 @@ module Helpers
   end
 
   def fastlane_path(git_path)
-    File.join(git_path, 'fastlane')
+    File.join(git_path, 'android/fastlane')
   end
 end

@@ -1,11 +1,16 @@
 module CarmenBuilds
   module Builders
+
     def self.build(config)
       platforms.each { |platform| platform.build(config) }
     end
 
     def self.platforms
       @platforms ||= []
+    end
+
+    def self.erase_platforms
+      @platforms = []
     end
 
     class Builder

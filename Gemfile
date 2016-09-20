@@ -3,6 +3,10 @@
 source "https://rubygems.org"
 
 gem 'fastlane'
+gem 'match'
+gem 'gym'
+gem 'pilot'
+
 gem 'git'
 gem 'mini_magick'
 gem 'dotenv'

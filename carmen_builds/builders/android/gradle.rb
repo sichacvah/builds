@@ -18,7 +18,9 @@ module CarmenBuilds
       end
 
       def set_version_code!
-        file.gsub!(/(?<=versionCode )(\d+)/, "#{$1.to_i.next}")
+        file.gsub!(/(?<=versionCode )(\d+)/) do |version|
+          version.to_i.next
+        end
       end
 
       def set_version_name!

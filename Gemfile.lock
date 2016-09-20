@@ -257,7 +257,10 @@ DEPENDENCIES
   factory_girl
   fastlane
   git
+  gym
+  match
   mini_magick
+  pilot
   rspec
 
 BUNDLED WITH

@@ -1,3 +1,4 @@
+require 'pty'
 module CarmenBuilds
   module Builders
     module Android
@@ -17,7 +18,9 @@ module CarmenBuilds
           self.prepare_icons config
           self.prepare_gradle config
           self.prepare_fastlane config
-          #self.build_fast_lane config
+          self.npm_install config
+          self.init_fastlane config
+          self.build_fastlane config
         end
 
 
@@ -41,12 +44,28 @@ module CarmenBuilds
           fastlane.prepare
         end
 
-        def self.build_fast_lane(config)
-          `#{config.git.dir.path}/fastlane supply init`
-          `#{config.git.dir.path}/fastlane playstore`
+        def self.run_cmd(cmd, options={})
+          STDOUT.flush
+          Open3.popen3(cmd, options) do |stdin, stdout, stderr, wait_thr|
+            while line = stdout.gets
+              STDOUT.puts line
+            end
+            STDERR.puts stderr.read
+          end
+        end
+
+        def self.npm_install(config)
+          self.run_cmd('npm i', {chdir: config.git.dir.path})
+        end
+
+        def self.init_fastlane(config)
+          self.run_cmd("fastlane supply init", chdir: "#{config.git.dir.path}/android")
+        end
+
+        def self.build_fastlane(config)
+          self.run_cmd("fastlane playstore", chdir: "#{config.git.dir.path}/android")
         end
       end
-
 
     end
   end
