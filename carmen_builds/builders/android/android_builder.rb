@@ -20,34 +20,34 @@ module CarmenBuilds
           #self.build_fast_lane config
         end
 
-        class << self
-          def prepare_icons(config)
-            AndroidBuilder::ICON_SIZES.each do |key, value|
-              path = FileUtils::mkdir_p File.join(config.git.dir.path, AndroidBuilder::RES_PATH, "drawable-#{key}")
-              image = MiniMagick::Image.open(config.icon_url)
-              image.resize value
-              image.write File.join(path, 'ic_launcher.png')
-            end
-          end
 
-          def prepare_gradle(config)
-            gradle = Gradle.new(config)
-            gradle.prepare
-          end
 
-          def prepare_fastlane(config)
-            fastlane = FastlaneRender.new(config)
-            fastlane.prepare
-          end
-
-          def build_fast_lane(config)
-            `#{config.git.dir.path}/fastlane supply init`
-            `#{config.git.dir.path}/fastlane playstore`
+        def self.prepare_icons(config)
+          AndroidBuilder::ICON_SIZES.each do |key, value|
+            path = FileUtils::mkdir_p File.join(config.git.dir.path, AndroidBuilder::RES_PATH, "drawable-#{key}")
+            image = MiniMagick::Image.open(config.icon_url)
+            image.resize value
+            image.write File.join(path, 'ic_launcher.png')
           end
         end
 
+        def self.prepare_gradle(config)
+          gradle = Gradle.new(config)
+          gradle.prepare
+        end
 
+        def self.prepare_fastlane(config)
+          fastlane = FastlaneRender.new(config)
+          fastlane.prepare
+        end
+
+        def self.build_fast_lane(config)
+          `#{config.git.dir.path}/fastlane supply init`
+          `#{config.git.dir.path}/fastlane playstore`
+        end
       end
+
+
     end
   end
 end
