@@ -3,7 +3,7 @@ module CarmenBuilds
     module Android
       class FastlaneRender
         include ERB::Util
-        TEMPLATES_PATH = File.expand_path('../../../templates/fastlane', __FILE__)
+        TEMPLATES_PATH = File.expand_path('templates/fastlane')
         attr_accessor :json_key_file, :package_name, :git
 
         def initialize(config)
@@ -16,14 +16,13 @@ module CarmenBuilds
           @templates ||= get_templates
         end
 
-        def render()
+        def render(template)
           ERB.new(template).result(binding)
         end
 
         def prepare
           Dir.glob(TEMPLATES_PATH.to_s + '/*.erb').each do |template|
-            puts template
-            save template.read, file_path(template)
+            save template, file_path(template)
           end
         end
 
@@ -32,7 +31,6 @@ module CarmenBuilds
             f.write render(template)
           end
         end
-
 
         private
 
@@ -49,7 +47,7 @@ module CarmenBuilds
         end
 
         def base_name(template)
-          File.base_name(template, '.erb')
+          File.basename(template, '.erb')
         end
       end
     end
