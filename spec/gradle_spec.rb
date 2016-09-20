@@ -15,7 +15,7 @@ RSpec.describe CarmenBuilds::Builders::Android::Gradle do
 
   describe '#set_version_code!' do
     it 'autoincrement versionCode' do
-      version = /versionCode (\d+)/.match(gradle.file)[0].to_i + 1
+      version = /versionCode (\d+)/.match(gradle.file)[1].to_i + 1
       gradle.set_version_code!
       expect(gradle.file).to include("versionCode #{version}")
     end

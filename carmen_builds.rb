@@ -1,4 +1,5 @@
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__))) unless $LOAD_PATH.include?(File.expand_path(File.dirname(__FILE__)))
+STDOUT.sync = true
 
 
 require 'git'
@@ -7,13 +8,12 @@ require 'fileutils'
 require "mini_magick"
 require 'tmpdir'
 require 'dotenv'
+require 'open3'
 
 Dotenv.load
 
 require 'carmen_builds/config'
 require 'carmen_builds/builders'
-
-
 
 Dir[File.expand_path('../config/initializers', __FILE__) + '/**/*.rb'].each do |file|
   require file
@@ -23,6 +23,7 @@ module CarmenBuilds
   def self.build
     CarmenBuilds::Builders.platforms << CarmenBuilds::Builders::Android::AndroidBuilder.new
     CarmenBuilds::Builders.build config
+    CarmenBuilds::Builders.erase_platforms
   end
 
   def self.config

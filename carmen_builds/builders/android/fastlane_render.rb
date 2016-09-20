@@ -7,8 +7,8 @@ module CarmenBuilds
         attr_accessor :json_key_file, :package_name, :git
 
         def initialize(config)
-          @json_key_file = File.join(ENV['JSON_KEY_FILE'])
-          @package_name = config.project_name
+          @json_key_file = File.expand_path(ENV['JSON_KEY_FILE'])
+          @package_name = config.application_id
           @git = config.git
         end
 
@@ -16,7 +16,8 @@ module CarmenBuilds
           @templates ||= get_templates
         end
 
-        def render(template)
+        def render(template_path)
+          template = File.read(template_path)
           ERB.new(template).result(binding)
         end
 
@@ -39,7 +40,7 @@ module CarmenBuilds
         end
 
         def fastlane_path
-          FileUtils.mkdir_p File.join(git_path, 'fastlane')
+          FileUtils.mkdir_p File.join(git_path, 'android/fastlane')
         end
 
         def git_path
