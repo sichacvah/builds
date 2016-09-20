@@ -22,8 +22,20 @@ module CarmenBuilds
         }
 
         SCREEN_SIZES = {
-          'screen-ipad-portrait' => ''
+          'screen-ipad-portrait' => '768x1280',
+          'screen-ipad-portrait-2x' => '1536x2048',
+          'screen-iphone-portrait' => '320x480',
+          'screen-iphone-portrait-2x' => '640x960',
+          'screen-iphone-portrait-568h-2x' => '640x1136',
+          'screen-iphone-portrait-667h' => '750x1334',
+          'screen-iphone-portrait-736h' => '1242x2208'
         }
+
+        RES_PATH = 'android/app/src/main/res'
+
+        build do |config|
+          self.prepare_icons config
+        end
 
         class << self
           def icons_json
@@ -55,20 +67,35 @@ module CarmenBuilds
           end
 
           def create_screen_backgroung(size)
-            `convert -size #{size} canvas:#EFEFEF #{self.tmp_background_path(size)}`
+            `convert -size #{size} canvas:'#EFEFEF' #{self.tmp_background_path(size)}`
           end
 
-          def tmp_background_path(size)
-            File.join File.expand_path('tmp') "background_#{size}.png"
+          def tmp_screen_path(size)
+            File.join File.expand_path('tmp') "screen-#{size}.png"
           end
 
 
-          def delete_screen_background(size)
+          def delete_screen(size)
             File.delete(self.tmp_background_path(size)) if File.exist?(self.tmp_background_path(size))
           end
 
-          def prepare_icons(config)
+          def icons_res_path(config)
+            FileUtils.mkdir_p "ios/#{config.project_name}/Images.xcassets/AppIcon.appiconset"
+          end
 
+          def screens_res_path(config)
+            FileUtils.mkdir_p "ios/#{config.project_name}/Images.xcassets/LaunchImage.launchimage"
+          end
+
+
+
+          def prepare_icons(config)
+            IOSBuilder::ICON_SIZES.each do |key, value|
+              path = FileUtils::mkdir_p File.join(config.git.dir.path, self.screens_res_path(config), "drawable-#{key}")
+              image = MiniMagick::Image.open(config.icon_url)
+              image.resize value
+              image.write File.join(path, key.to_s + '.png')
+            end
           end
 
         end
