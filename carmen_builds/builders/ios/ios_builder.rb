@@ -34,9 +34,30 @@ module CarmenBuilds
         build do |config|
           self.prepare_icons config
           self.prepare_screens config
+          self.prepare_fastlane config
+          self.run_fastlane config
+          self.npm_install config
         end
 
+
         class << self
+          def prepare_fastlane(config)
+            fastlane = CarmenBuilds::Builders::FastlaneRender.new(config)
+            fastlane.prepare({
+              templates: File.expand_path('templates/fastlane/ios'),
+              destinition: 'ios/fastlane'
+            })
+          end
+
+          def self.npm_install(config)
+            self.run_cmd('npm i', {chdir: config.git.dir.path})
+          end
+
+          def run_fastlane config
+            self.run_cmd("fastlane appstore", chdir: "#{config.git.dir.path}/ios")
+          end
+
+
           def contents_json(sizes)
             contents_obj = {
               'images' => [],

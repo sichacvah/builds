@@ -37,6 +37,16 @@ module CarmenBuilds
         def clone_repo(config)
           config.git ||= Git.clone(config.repo_url, config.project_name, path: tmpdir)
         end
+
+        def run_cmd(cmd, options={})
+          STDOUT.flush
+          Open3.popen3(cmd, options) do |stdin, stdout, stderr, wait_thr|
+            while line = stdout.gets
+              STDOUT.puts line
+            end
+            STDERR.puts stderr.read
+          end
+        end
       end
     end
 
