@@ -31,30 +31,37 @@ module CarmenBuilds
           'screen-iphone-portrait-736h' => '1242x2208'
         }
 
-        RES_PATH = 'android/app/src/main/res'
-
         build do |config|
           self.prepare_icons config
+          self.prepare_screens config
         end
 
         class << self
-          def icons_json
-            icons_obj = {
+          def contents_json(sizes)
+            contents_obj = {
               'images' => [],
               'info' => {
                 'version' => 1,
                 'author' => 'xcode'
               }
             }
-            ICON_SIZES.map do |key,val|
-              icons_obj[images] << {
+            sizes.map do |key,val|
+              contents_obj['images'] << {
                 size: val,
-                idiom: 'iphone',
+                idiom: self.idiom(key),
                 filename: key,
                 scale: self.scale(key)
               }
             end
-            icons_obj.to_json
+            JSON.pretty_generate contents_obj
+          end
+
+          def idiom(key)
+            if key.to_s =~ /ipad/
+              'ipad'
+            else
+              'iphone'
+            end
           end
 
           def scale(key)
@@ -67,36 +74,60 @@ module CarmenBuilds
           end
 
           def create_screen_backgroung(size)
-            `convert -size #{size} canvas:'#EFEFEF' #{self.tmp_background_path(size)}`
+            image_path = self.tmp_bg_path(size)
+            `convert -size #{size} canvas:'#EFEFEF' #{image_path}`
+            image_path
           end
 
-          def tmp_screen_path(size)
-            File.join File.expand_path('tmp') "screen-#{size}.png"
+          def tmp_bg_path(size)
+            File.join File.expand_path('tmp'), "screen-#{size}.png"
           end
 
-
-          def delete_screen(size)
-            File.delete(self.tmp_background_path(size)) if File.exist?(self.tmp_background_path(size))
+          def delete_screen_bg(size)
+            File.delete(self.tmp_bg_path(size)) if File.exist?(self.tmp_bg_path(size))
           end
 
           def icons_res_path(config)
-            FileUtils.mkdir_p "ios/#{config.project_name}/Images.xcassets/AppIcon.appiconset"
+            File.join FileUtils::mkdir_p(File.join(config.git.dir.path, "ios/#{config.project_name}/Images.xcassets/AppIcon.appiconset"))
           end
 
           def screens_res_path(config)
-            FileUtils.mkdir_p "ios/#{config.project_name}/Images.xcassets/LaunchImage.launchimage"
+            File.join FileUtils::mkdir_p(File.join(config.git.dir.path, "ios/#{config.project_name}/Images.xcassets/LaunchImage.launchimage"))
           end
 
-
-
           def prepare_icons(config)
+            path = self.icons_res_path(config)
             IOSBuilder::ICON_SIZES.each do |key, value|
-              path = FileUtils::mkdir_p File.join(config.git.dir.path, self.screens_res_path(config), "drawable-#{key}")
               image = MiniMagick::Image.open(config.icon_url)
               image.resize value
               image.write File.join(path, key.to_s + '.png')
             end
+            self.create_contents(path, self.contents_json(ICON_SIZES))
           end
+
+          def create_contents(path, json)
+            File.open(File.join(path, 'Contents.json'), 'w+') do |f|
+              f.write json
+            end
+          end
+
+          def prepare_screens(config)
+            path = self.screens_res_path(config)
+            IOSBuilder::SCREEN_SIZES.each do |name, size|
+              bg_image = MiniMagick::Image.new(create_screen_backgroung(size))
+              icon = MiniMagick::Image.open(config.icon_url)
+              width = size.split('x').first.to_i / 3
+              icon.resize "#{width}x#{width}"
+              result = bg_image.composite(icon, 'png') do |i|
+                i.compose "Over"
+                i.gravity 'center'
+              end
+              result.write File.join(path, "#{name}.png")
+              self.delete_screen_bg(size)
+            end
+            self.create_contents(path, self.contents_json(SCREEN_SIZES))
+          end
+
 
         end
       end

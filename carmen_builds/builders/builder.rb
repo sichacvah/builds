@@ -9,6 +9,10 @@ module CarmenBuilds
       @platforms ||= []
     end
 
+    def self.platforms=(p =[])
+      @platforms = p
+    end
+
     def self.erase_platforms
       @platforms = []
     end
