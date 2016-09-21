@@ -21,17 +21,60 @@ end
 
 module CarmenBuilds
   def self.build
-    CarmenBuilds::Builders.platforms << CarmenBuilds::Builders::Android::AndroidBuilder.new
-    CarmenBuilds::Builders.build config
-    CarmenBuilds::Builders.erase_platforms
+    CarmenBuilds::Builders.platforms = self.platforms
+    self.configs.each do |config|
+      CarmenBuilds::Builders.build config
+    end
   end
 
-  def self.config
+  def self.configs
+    @configs ||= [
+      self.client_config,
+      self.workstation_config
+    ]
+  end
+
+  def self.client_config
     CarmenBuilds::Config.new do |config|
       config.repo_url = 'git@techinform.pro:carmen_client_app'
-      config.project_name = 'carmen_client_app'
+      config.project_name = 'carmen_client'
       config.application_id = 'ru.car4men.app.client'
-      config.icon_url = 'http://www.car4men.ru/images/app_logo_big.png'
+      config.icon_url = 'http://www.car4men.ru/system/build/icon/0/karman_1024.png'
+    end
+  end
+
+  def self.workstation_config
+    CarmenBuilds::Config.new do |config|
+      config.repo_url = 'git@techinform.pro:carmen_manager_app'
+      config.project_name = 'carmen_arm'
+      config.application_id = 'ru.car4men.app.workstation'
+      config.icon_url = 'http://s16.postimg.org/bsaqknqbp/karman_arm_1024.png'
+    end
+  end
+
+  def self.platforms=(pfrms = [])
+    @platforms = pfrms
+  end
+
+  def self.platforms
+    @platforms ||= [
+      CarmenBuilds::Builders::Android::AndroidBuilder.new,
+      CarmenBuilds::Builders::IOS::IOSBuilder.new
+    ]
+  end
+
+  def self.configure(cfgs = [])
+    cfgs.each do |config|
+      self.configs << self.parse_config(config)
+    end
+  end
+
+  def self.parse_config(config)
+    case config
+    when CarmenBuilds::Config then config
+    when Hash then CarmenBuilds::Config.new config
+    else
+      throw ArgumentError, config
     end
   end
 end
