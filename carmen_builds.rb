@@ -40,6 +40,7 @@ module CarmenBuilds
       config.project_name = 'carmen_client'
       config.application_id = 'ru.car4men.app.client'
       config.icon_url = 'http://www.car4men.ru/system/build/icon/0/karman_1024.png'
+      config.store_name = 'Кармен'
     end
   end
 
@@ -49,6 +50,7 @@ module CarmenBuilds
       config.project_name = 'carmen_arm'
       config.application_id = 'ru.car4men.app.workstation'
       config.icon_url = 'http://s16.postimg.org/bsaqknqbp/karman_arm_1024.png'
+      config.store_name = 'Кармен АРМ'
     end
   end
 

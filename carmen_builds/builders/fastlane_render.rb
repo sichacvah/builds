@@ -6,9 +6,7 @@ module CarmenBuilds
 
       def initialize(config)
         @json_key_file = File.expand_path(ENV['JSON_KEY_FILE'])
-        @package_name = config.application_id
-        @git = config.git
-        @git_url = @git.remote.url
+        @config = config
       end
 
       def templates
