@@ -41,7 +41,7 @@ module CarmenBuilds
       end
 
       def git_path
-        @git_path ||= @git.dir.path
+        @git_path ||= @config.git.dir.path
       end
 
       def base_name(template)
