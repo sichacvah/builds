@@ -49,7 +49,7 @@ module CarmenBuilds
             })
           end
 
-          def self.npm_install(config)
+          def npm_install(config)
             self.run_cmd('npm i', {chdir: config.git.dir.path})
           end
 
