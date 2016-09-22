@@ -54,7 +54,7 @@ module CarmenBuilds
           end
 
           def run_fastlane config
-            self.run_cmd("fastlane appstore", chdir: "#{config.git.dir.path}/ios")
+            self.run_cmd("fastlane release", chdir: "#{config.git.dir.path}/ios")
           end
 
 
