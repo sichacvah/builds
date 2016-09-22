@@ -35,8 +35,8 @@ module CarmenBuilds
           self.prepare_icons config
           self.prepare_screens config
           self.prepare_fastlane config
-          self.run_fastlane config
           self.npm_install config
+          self.run_fastlane config
         end
 
 
