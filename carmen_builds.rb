@@ -60,7 +60,6 @@ module CarmenBuilds
 
   def self.platforms
     @platforms ||= [
-      CarmenBuilds::Builders::Android::AndroidBuilder.new,
       CarmenBuilds::Builders::IOS::IOSBuilder.new
     ]
   end
