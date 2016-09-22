@@ -6,6 +6,7 @@ gem 'fastlane'
 gem 'match'
 gem 'gym'
 gem 'pilot'
+gem 'cocoapods'
 
 gem 'git'
 gem 'mini_magick'

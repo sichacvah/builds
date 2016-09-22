@@ -29,7 +29,6 @@ module CarmenBuilds
 
   def self.configs
     @configs ||= [
-      self.client_config,
       self.workstation_config
     ]
   end
