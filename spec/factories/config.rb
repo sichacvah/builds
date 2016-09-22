@@ -5,6 +5,7 @@ FactoryGirl.define  do
     project_name 'carmen_client'
     application_id 'ru.car4men.app.client'
     icon_url 'http://www.car4men.ru/images/app_logo_big.png'
+    store_name 'Кармен'
   end
 
   factory :icon_config, class: CarmenBuilds::Config do
