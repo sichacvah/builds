@@ -26,9 +26,11 @@ module CarmenBuilds
         def self.prepare_icons(config)
           AndroidBuilder::ICON_SIZES.each do |key, value|
             path = FileUtils::mkdir_p File.join(config.git.dir.path, AndroidBuilder::RES_PATH, "drawable-#{key}")
+            mipmap_path = FileUtils::mkdir_p File.join(config.git.dir.path, AndroidBuilder::RES_PATH, "mipmap-#{key}")
             image = MiniMagick::Image.open(config.icon_url)
             image.resize value
             image.write File.join(path, 'ic_launcher.png')
+            image.write File.join(mipmap_path, 'ic_launcher.png')
           end
         end
 
@@ -36,12 +38,15 @@ module CarmenBuilds
           path = File.join(config.git.dir.path, AndroidBuilder::RES_PATH, 'values', 'strings.xml')
           file = File.read(path)
           file.gsub(/(?<="rus_name">)(.+)(?=<)/) do |match|
+            puts match
             config.store_name
           end
           File.open(path, 'w+') do |f|
             f.write(file)
           end
         end
+
+
 
         def self.prepare_gradle(config)
           gradle = Gradle.new(config)
@@ -56,7 +61,7 @@ module CarmenBuilds
           })
         end
 
-        
+
 
         def self.npm_install(config)
           self.run_cmd('npm i', {chdir: config.git.dir.path})

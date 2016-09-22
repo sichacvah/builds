@@ -14,6 +14,7 @@ Dotenv.load
 
 require 'carmen_builds/config'
 require 'carmen_builds/builders'
+require 'android_configs'
 
 Dir[File.expand_path('../config/initializers', __FILE__) + '/**/*.rb'].each do |file|
   require file
@@ -29,7 +30,6 @@ module CarmenBuilds
 
   def self.configs
     @configs ||= [
-      self.workstation_config
     ]
   end
 
@@ -59,7 +59,7 @@ module CarmenBuilds
 
   def self.platforms
     @platforms ||= [
-      CarmenBuilds::Builders::IOS::IOSBuilder.new
+      CarmenBuilds::Builders::Android::AndroidBuilder.new
     ]
   end
 
