@@ -22,8 +22,29 @@ module CarmenBuilds
         def build(&block)
           define_method :build do |config|
             self.class.clone_repo(config)
+            self.class.set_env_id(config) unless config.id.nil?
+            self.class.set_color(config) unless config.color.nil?
             block.call(config)
           end
+        end
+
+
+        def set_env_id(config)
+          path = File.join(config.git.dir.path, 'js', 'env.js')
+          file = File.read(path)
+          file.gsub(/(?<=jsonApiEndpoint).+\'api\/mobile\/(\d)(?=\/\')/) do |match|
+            config.id
+          end
+          File.open(path, 'w+') {|f| f.write(file)}
+        end
+
+        def set_color(config)
+          path = File.join(config.git.dir.path, 'js', 'common', 'CommonColors.js')
+          file = File.read(path)
+          file.gsub(/(?<=appColor: ')(#\w+)(?=')/) do |match|
+            config.color
+          end
+          File.open(path, 'w+') {|f| f.write(file)}
         end
 
         def tmpdir
