@@ -32,8 +32,8 @@ module CarmenBuilds
         def set_env_id(config)
           path = File.join(config.git.dir.path, 'js', 'env.js')
           file = File.read(path)
-          file.gsub(/(?<=jsonApiEndpoint).+\'api\/mobile\/(\d)(?=\/\')/) do |match|
-            config.id
+          file.gsub!(/jsonApiEndpoint:\s+'api\/mobile\/(\d)\/'/) do |match|
+            "jsonApiEndpoint: 'api/mobile/#{config.id}/'"
           end
           File.open(path, 'w+') {|f| f.write(file)}
         end
@@ -41,7 +41,7 @@ module CarmenBuilds
         def set_color(config)
           path = File.join(config.git.dir.path, 'js', 'common', 'CommonColors.js')
           file = File.read(path)
-          file.gsub(/(?<=appColor: ')(#\w+)(?=')/) do |match|
+          file.gsub!(/(?<=appColor: ')(#\w+)(?=')/) do |match|
             config.color
           end
           File.open(path, 'w+') {|f| f.write(file)}

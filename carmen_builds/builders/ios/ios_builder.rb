@@ -26,7 +26,7 @@ module CarmenBuilds
           'screen-ipad-portrait-2x' => '1536x2048',
           'screen-iphone-portrait' => '320x480',
           'screen-iphone-portrait-2x' => '640x960',
-          'screen-iphone-portrait-568h' => '320x568',
+          #'screen-iphone-portrait-568h' => '320x568',
           'screen-iphone-portrait-568h-2x' => '640x1136',
           'screen-iphone-portrait-667h' => '750x1334',
           'screen-iphone-portrait-736h' => '1242x2208'
