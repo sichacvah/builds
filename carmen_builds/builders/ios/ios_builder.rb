@@ -31,19 +31,31 @@ module CarmenBuilds
         }
 
         SCREEN_SIZES = {
-          'screen-iphone-portrait' => '320x480',
-          'screen-iphone-portrait_2x' => '640x960',
-          'screen-iphone-portrait-568h' => '320x568',
-          'screen-iphone-portrait-568h_2x' => '640x1136',
-          'screen-iphone-portrait-667h' => '750x1334',
-          'screen-iphone-portrait-667h_2x' => '1500x2668',
-          'screen-iphone-portrait-736h' => '1242x2208',
-          'screen-iphone-portrait-736h_2x' => '2484x4416'
+          'Default-736h' => {
+            size: '1242x2208',
+            scale: 3,
+          },
+          'Default-667h' => {
+            size: '750x1334',
+            scale: 2,
+          },
+          'Default@2x~iphone' => {
+            size: '640x960',
+            scale: 2,
+          },
+          'Default-568h@2x~iphone' => {
+            scale: 2,
+            size: '640x1136',
+          },
+          'Default~iphone' => {
+            scale: 1,
+            size: '320x480'
+          }
         }
 
         build do |config|
           self.prepare_icons config
-          #self.prepare_screens config
+          self.prepare_screens config
           self.prepare_fastlane config
           self.npm_install config
           self.run_fastlane config
@@ -143,10 +155,7 @@ module CarmenBuilds
               result.write File.join(path, "#{name}.png")
               self.delete_screen_bg(size)
             end
-            self.create_contents(path, self.contents_json(SCREEN_SIZES))
           end
-
-
         end
       end
     end
