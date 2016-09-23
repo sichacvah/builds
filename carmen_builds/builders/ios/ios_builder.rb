@@ -22,11 +22,9 @@ module CarmenBuilds
         }
 
         SCREEN_SIZES = {
-          'screen-ipad-portrait' => '768x1280',
-          'screen-ipad-portrait-2x' => '1536x2048',
           'screen-iphone-portrait' => '320x480',
           'screen-iphone-portrait-2x' => '640x960',
-          #'screen-iphone-portrait-568h' => '320x568',
+          'screen-iphone-portrait-568h' => '320x568',
           'screen-iphone-portrait-568h-2x' => '640x1136',
           'screen-iphone-portrait-667h' => '750x1334',
           'screen-iphone-portrait-736h' => '1242x2208'
@@ -70,21 +68,14 @@ module CarmenBuilds
             sizes.map do |key,val|
               contents_obj['images'] << {
                 size: val,
-                idiom: self.idiom(key),
-                filename: key,
+                idiom: 'universal',
+                filename: "#{key.gsub('-2x', '@2x')}.png",
                 scale: self.scale(key)
               }
             end
             JSON.pretty_generate contents_obj
           end
 
-          def idiom(key)
-            if key.to_s =~ /ipad/
-              'ipad'
-            else
-              'iphone'
-            end
-          end
 
           def scale(key)
             case key.to_s[-2..-1]

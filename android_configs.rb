@@ -17,7 +17,7 @@ module AndroidConfigs
       icon_url: File.expand_path('android_icons/1.png'),
       id: 1,
       color: '#f7904b',
-      store_name: "Da'car"
+      store_name: "Дакар"
     },
     {
       repo_url: client_repo,
