@@ -29,8 +29,7 @@ module CarmenBuilds
   end
 
   def self.configs
-    @configs ||= [
-    ]
+    @configs ||= [self.workstation_config]
   end
 
   def self.client_config
@@ -38,7 +37,7 @@ module CarmenBuilds
       config.repo_url = 'git@techinform.pro:carmen_client_app'
       config.project_name = 'carmen_client'
       config.application_id = 'ru.car4men.app.client'
-      config.icon_url = 'http://www.car4men.ru/system/build/icon/0/karman_1024.png'
+      config.icon_url = File.expand_path 'karman_1024.png'
       config.store_name = 'Кармен'
     end
   end
@@ -48,7 +47,7 @@ module CarmenBuilds
       config.repo_url = 'git@techinform.pro:carmen_manager_app'
       config.project_name = 'carmen_arm'
       config.application_id = 'ru.car4men.app.workstation'
-      config.icon_url = 'http://s16.postimg.org/bsaqknqbp/karman_arm_1024.png'
+      config.icon_url = File.expand_path 'karman_1024.png'
       config.store_name = 'Кармен АРМ'
     end
   end
@@ -59,7 +58,8 @@ module CarmenBuilds
 
   def self.platforms
     @platforms ||= [
-      CarmenBuilds::Builders::Android::AndroidBuilder.new
+      #CarmenBuilds::Builders::Android::AndroidBuilder.new,
+      CarmenBuilds::Builders::IOS::IOSBuilder.new
     ]
   end
 
