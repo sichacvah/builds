@@ -37,8 +37,7 @@ module CarmenBuilds
         def self.set_store_name(config)
           path = File.join(config.git.dir.path, AndroidBuilder::RES_PATH, 'values', 'strings.xml')
           file = File.read(path)
-          file.gsub(/(?<="rus_name">)(.+)(?=<)/) do |match|
-            puts match
+          file.gsub!(/(?<="rus_name">)(.+)(?=<)/) do |match|
             config.store_name
           end
           File.open(path, 'w+') do |f|
