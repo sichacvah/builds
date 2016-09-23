@@ -4,21 +4,30 @@ module CarmenBuilds
     module IOS
       class IOSBuilder < Builder
         ICON_SIZES = {
-          icon_small: '29x29',
-          icon_small_2x: '58x58',
-          icon: '57x57',
-          icon_2x: '114x114',
-          icon_40: '40x40',
-          icon_40_2x: '80x80',
-          icon_50: '50x50',
-          icon_50_2x: '100x100',
-          icon_60: '60x60',
-          icon_60_2x: '120x120',
-          icon_60_3x: '180x180',
-          icon_72: '72x72',
-          icon_72_2x: '144x144',
-          icon_76: '76x76',
-          icon_76_2x: '152x152'
+          'icon_small@2x' => {
+            size:  29,
+            scale: 2,
+          },
+          'icon_small@3x' => {
+            size: 29,
+            scale: 3,
+          },
+          'icon_40@2x' => {
+            size: 40,
+            scale: 2
+          },
+          'icon_40@3x' => {
+            size: 40,
+            scale: 3
+          },
+          'icon_60@2x' => {
+            size: 60,
+            scale: 2
+          },
+          'icon_60@3x' => {
+            size: 60,
+            scale: 3
+          }
         }
 
         SCREEN_SIZES = {
@@ -34,7 +43,7 @@ module CarmenBuilds
 
         build do |config|
           self.prepare_icons config
-          self.prepare_screens config
+          #self.prepare_screens config
           self.prepare_fastlane config
           self.npm_install config
           self.run_fastlane config
@@ -67,26 +76,19 @@ module CarmenBuilds
                 'author' => 'xcode'
               }
             }
-            sizes.map do |key,val|
+            sizes.map do |name, params|
+              size = params[:size]
+              scale = params[:scale]
               contents_obj['images'] << {
-                size: val,
-                idiom: 'universal',
-                filename: "#{key.gsub('-2x', '@2x')}.png",
-                scale: self.scale(key)
+                size: "#{size}x#{size}",
+                idiom: 'iphone',
+                filename: "#{name}.png",
+                scale: "#{scale}x"
               }
             end
             JSON.pretty_generate contents_obj
           end
 
-
-          def scale(key)
-            case key.to_s[-2..-1]
-            when '2x' then '2x'
-            when '3x' then '3x'
-            else
-              '1x'
-            end
-          end
 
           def create_screen_backgroung(size)
             image_path = self.tmp_bg_path(size)
@@ -112,10 +114,11 @@ module CarmenBuilds
 
           def prepare_icons(config)
             path = self.icons_res_path(config)
-            IOSBuilder::ICON_SIZES.each do |key, value|
+            IOSBuilder::ICON_SIZES.each do |key, params|
+              size = params[:size]*params[:key]
               image = MiniMagick::Image.open(config.icon_url)
-              image.resize value
-              image.write File.join(path, key.to_s + '.png')
+              image.resize "#{size}x#{size}"
+              image.write File.join(path, key + '.png')
             end
             self.create_contents(path, self.contents_json(ICON_SIZES))
           end
