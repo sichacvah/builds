@@ -115,7 +115,7 @@ module CarmenBuilds
           def prepare_icons(config)
             path = self.icons_res_path(config)
             IOSBuilder::ICON_SIZES.each do |key, params|
-              size = params[:size]*params[:key]
+              size = params[:size]*params[:scale]
               image = MiniMagick::Image.open(config.icon_url)
               image.resize "#{size}x#{size}"
               image.write File.join(path, key + '.png')
