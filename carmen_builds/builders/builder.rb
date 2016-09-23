@@ -22,7 +22,7 @@ module CarmenBuilds
         def build(&block)
           define_method :build do |config|
             self.class.clone_repo(config)
-            self.prepare_in_app_icon(config)
+            self.class.prepare_in_app_icon(config)
             self.class.set_env_id(config) unless config.id.nil?
             self.class.set_color(config) unless config.color.nil?
             block.call(config)
@@ -39,7 +39,7 @@ module CarmenBuilds
           File.open(path, 'w+') {|f| f.write(file)}
         end
 
-        def self.prepare_in_app_icon(config)
+        def prepare_in_app_icon(config)
           image = MiniMagick::Image.open(config.icon_url)
           image.write File.join(config.git.dir.path, 'js', 'img', 'app.png')
         end
