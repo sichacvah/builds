@@ -23,13 +23,13 @@ module CarmenBuilds
 
         SCREEN_SIZES = {
           'screen-iphone-portrait' => '320x480',
-          'screen-iphone-portrait-2x' => '640x960',
+          'screen-iphone-portrait_2x' => '640x960',
           'screen-iphone-portrait-568h' => '320x568',
-          'screen-iphone-portrait-568h-2x' => '640x1136',
+          'screen-iphone-portrait-568h_2x' => '640x1136',
           'screen-iphone-portrait-667h' => '750x1334',
-          'screen-iphone-portrait-667h-2x' => '1500x2668',
+          'screen-iphone-portrait-667h_2x' => '1500x2668',
           'screen-iphone-portrait-736h' => '1242x2208',
-          'screen-iphone-portrait-736h-2x' => '2484x4416'
+          'screen-iphone-portrait-736h_2x' => '2484x4416'
         }
 
         build do |config|
@@ -71,7 +71,7 @@ module CarmenBuilds
               contents_obj['images'] << {
                 size: val,
                 idiom: 'universal',
-                filename: "#{key.gsub('-2x', '@2x')}.png",
+                filename: "#{key.to_s.gsub('_2x', '@2x')}.png",
                 scale: self.scale(key)
               }
             end
