@@ -1,3 +1,9 @@
-!tmp/**
-!tmp/.keep
-google_play.json
+/.bundle/
+/.yardoc
+/Gemfile.lock
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/

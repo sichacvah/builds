@@ -1,16 +1,7 @@
-# frozen_string_literal: true
-# A sample Gemfile
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem 'fastlane'
-gem 'match'
-gem 'gym'
-gem 'pilot'
-gem 'cocoapods'
-
-gem 'git'
-gem 'mini_magick'
-gem 'dotenv'
+# Specify your gem's dependencies in carmen_builds.gemspec
+gemspec
 
 group :test do
   gem 'rspec'
