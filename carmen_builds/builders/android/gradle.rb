@@ -47,8 +47,8 @@ module CarmenBuilds
 
       def prepare
         set_application_id!
-        set_version_code!
-        set_version_name!
+        #set_version_code!
+        #set_version_name!
         save!
       end
 
