@@ -55,7 +55,7 @@ module CarmenBuilds
 
         build do |config|
           self.prepare_icons config
-          #self.prepare_screens config
+          self.prepare_screens config
           self.prepare_fastlane config
           self.npm_install config
           self.run_fastlane config
@@ -144,7 +144,7 @@ module CarmenBuilds
           def prepare_screens(config)
             path = self.screens_res_path(config)
             IOSBuilder::SCREEN_SIZES.each do |name, params|
-	      size = params[:size]	
+	      size = params[:size]
               bg_image = MiniMagick::Image.new(create_screen_backgroung(size))
               icon = MiniMagick::Image.open(config.icon_url)
               width = size.split('x').first.to_i / 3
