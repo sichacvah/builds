@@ -21,6 +21,24 @@ module AndroidConfigs
     },
     {
       repo_url: client_repo,
+      project_name: 'carmen_client4',
+      application_id: 'ru.car4men.app.client4',
+      icon_url: File.expand_path('android_icons/4.png'),
+      id: 4,
+      color: '#1D87BB',
+      store_name: 'Мойкатеринбург'
+    },
+    {
+      repo_url: client_repo,
+      project_name: 'carmen_client6',
+      application_id: 'ru.car4men.app.client6',
+      icon_url: File.expand_path('android_icons/6.png'),
+      store_name: 'Сафари',
+      color: '#DD7528',
+      id: 6
+    },
+    {
+      repo_url: client_repo,
       project_name: 'carmen_client2',
       application_id: 'ru.car4men.app.client2',
       icon_url: File.expand_path('android_icons/2.png'),
@@ -39,30 +57,12 @@ module AndroidConfigs
     },
     {
       repo_url: client_repo,
-      project_name: 'carmen_client4',
-      application_id: 'ru.car4men.app.client4',
-      icon_url: File.expand_path('android_icons/4.png'),
-      id: 4,
-      color: '#1D87BB',
-      store_name: 'Мойкатеринбург'
-    },
-    {
-      repo_url: client_repo,
       project_name: 'carmen_client5',
       application_id: 'ru.car4men.app.client5',
       icon_url: File.expand_path('android_icons/5.png'),
       store_name: 'АвтоСпа',
       color: '#D64949',
       id: 5
-    },
-    {
-      repo_url: client_repo,
-      project_name: 'carmen_client6',
-      application_id: 'ru.car4men.app.client6',
-      icon_url: File.expand_path('android_icons/6.png'),
-      store_name: 'Сафари',
-      color: '#DD7528',
-      id: 6
     },
     {
       repo_url: client_repo,

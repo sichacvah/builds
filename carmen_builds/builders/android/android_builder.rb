@@ -16,6 +16,7 @@ module CarmenBuilds
         build do |config|
           self.prepare_icons config
           self.prepare_gradle config
+          #self.prepare_manifest config
           self.prepare_fastlane config
           self.set_store_name config
           self.npm_install config
@@ -40,6 +41,15 @@ module CarmenBuilds
           file.gsub!(/(?<="rus_name">)(.+)(?=<)/) do |match|
             config.store_name
           end
+          File.open(path, 'w+') do |f|
+            f.write(file)
+          end
+        end
+
+        def self.prepare_manifest config
+          path = File.join(config.git.dir.path, 'android/app/src/main', 'AndroidManifest.xml')
+          file = File.read(path)
+          file.gsub!("com.\w+", config.application_id)
           File.open(path, 'w+') do |f|
             f.write(file)
           end
