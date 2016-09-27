@@ -19,7 +19,8 @@ platform :ios do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
     # cocoapods
-    update_app_identifier(app_identifier: '<%= @config.application_id %>', plist_path: "<%= File.join(@config.git.dir.path, 'ios', @config.project_name, 'Info.plist') %>")
+    update_info_plist(display_name: "<%= @config.store_name %>", plist_path: '<%= @config.project_name %>/Info.plist')
+
   end
 
   desc 'Runs all the tests'

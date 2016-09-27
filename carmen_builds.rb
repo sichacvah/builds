@@ -29,7 +29,7 @@ module CarmenBuilds
   end
 
   def self.configs
-    @configs ||= []
+    @configs ||= [self.client_config]
   end
 
   def self.client_config
@@ -58,8 +58,8 @@ module CarmenBuilds
 
   def self.platforms
     @platforms ||= [
-      CarmenBuilds::Builders::Android::AndroidBuilder.new,
-      #CarmenBuilds::Builders::IOS::IOSBuilder.new
+      #CarmenBuilds::Builders::Android::AndroidBuilder.new,
+      CarmenBuilds::Builders::IOS::IOSBuilder.new
     ]
   end
 
