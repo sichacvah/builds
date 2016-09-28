@@ -72,10 +72,6 @@ module CarmenBuilds
             })
           end
 
-          def npm_install(config)
-            self.run_cmd('npm i', {chdir: config.git.dir.path})
-          end
-
           def run_fastlane config
             self.run_cmd("fastlane release", chdir: "#{config.git.dir.path}/ios")
           end

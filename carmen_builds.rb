@@ -39,6 +39,7 @@ module CarmenBuilds
       config.application_id = 'ru.car4men.app.client'
       config.icon_url = File.expand_path 'android_icons/client.png'
       config.store_name = 'Кармен'
+      config.node_modules = '../node_modules'
     end
   end
 

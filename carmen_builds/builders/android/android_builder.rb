@@ -72,9 +72,7 @@ module CarmenBuilds
 
 
 
-        def self.npm_install(config)
-          self.run_cmd('npm i', {chdir: config.git.dir.path})
-        end
+        
 
         def self.init_fastlane(config)
           self.run_cmd("fastlane supply init", chdir: "#{config.git.dir.path}/android")

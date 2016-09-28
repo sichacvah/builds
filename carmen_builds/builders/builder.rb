@@ -65,6 +65,14 @@ module CarmenBuilds
           config.git ||= Git.clone(config.repo_url, config.project_name, path: tmpdir)
         end
 
+        def npm_install(config)
+          if (config.node_modules.nil?)
+            self.run_cmd('npm i', {chdir: config.git.dir.path})
+          else
+            self.run_cmd("ln -s #{config.npm_dir} #{config.git.dir.path}/node_modules")
+          end
+        end
+
         def run_cmd(cmd, options={})
           Open3.popen3(cmd, options) do |stdin, stdout, stderr, wait_thr|
             while line = stdout.gets
