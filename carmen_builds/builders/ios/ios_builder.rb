@@ -56,8 +56,9 @@ module CarmenBuilds
         build do |config|
           self.prepare_icons config
           self.prepare_screens config
-          self.prepare_fastlane config
           self.npm_install config
+          # self.prepare_cocoapods config
+          self.prepare_fastlane config
           self.run_fastlane config
         end
 
@@ -77,6 +78,10 @@ module CarmenBuilds
 
           def run_fastlane config
             self.run_cmd("fastlane release", chdir: "#{config.git.dir.path}/ios")
+          end
+
+          def prepare_cocoapods config
+            self.run_cmd('pod install', chdir: "#{config.git.dir.path}/ios")
           end
 
 

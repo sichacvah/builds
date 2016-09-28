@@ -19,8 +19,6 @@ platform :ios do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
     # cocoapods
-    update_info_plist(display_name: "<%= @config.store_name %>", plist_path: '<%= @config.project_name %>/Info.plist')
-
   end
 
   desc 'Runs all the tests'
@@ -46,7 +44,11 @@ platform :ios do
     # ensure_git_status_clean
     # increment_build_number(xcodeproj: '<%= @config.project_name %>.xcodeproj')
     # commit_version_bump(xcodeproj: '<%= @config.project_name %>.xcodeproj')
-    gym(configuration: 'Release')
+    update_info_plist(display_name: "<%= @config.store_name %>", plist_path: '<%= @config.project_name %>/Info.plist')
+    gym(
+      configuration: 'Release',
+      scheme: '<%= @config.project_name %>'
+    )
     deliver(force: true)
     # push_to_git_remote
   end
