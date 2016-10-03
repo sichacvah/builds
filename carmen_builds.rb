@@ -29,7 +29,7 @@ module CarmenBuilds
   end
 
   def self.configs
-    @configs ||= [self.client_config]
+    @configs ||= [self.workstation_config]
   end
 
   def self.client_config

@@ -54,8 +54,9 @@ module CarmenBuilds
         }
 
         build do |config|
-          self.prepare_icons config
+          #self.prepare_icons config
           self.prepare_screens config
+          self.add_appicon_plugin
           self.npm_install config
           # self.prepare_cocoapods config
           self.prepare_fastlane config
@@ -64,6 +65,10 @@ module CarmenBuilds
 
 
         class << self
+          def add_appicon_plugin
+            self.run_cmd('fastlane add_plugin appicon', chdir: "#{config.git.dir.path}/ios")
+          end
+
           def prepare_fastlane(config)
             fastlane = CarmenBuilds::Builders::FastlaneRender.new(config)
             fastlane.prepare({
@@ -145,7 +150,7 @@ module CarmenBuilds
           def prepare_screens(config)
             path = self.screens_res_path(config)
             IOSBuilder::SCREEN_SIZES.each do |name, params|
-	      size = params[:size]
+	            size = params[:size]
               bg_image = MiniMagick::Image.new(create_screen_backgroung(size))
               icon = MiniMagick::Image.open(config.icon_url)
               width = size.split('x').first.to_i / 3

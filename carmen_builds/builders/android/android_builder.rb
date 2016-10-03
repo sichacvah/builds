@@ -70,10 +70,6 @@ module CarmenBuilds
           })
         end
 
-
-
-        
-
         def self.init_fastlane(config)
           self.run_cmd("fastlane supply init", chdir: "#{config.git.dir.path}/android")
         end
