@@ -300,6 +300,3 @@ DEPENDENCIES
   mini_magick
   pilot
   rspec
-
-BUNDLED WITH
-   1.13.1
